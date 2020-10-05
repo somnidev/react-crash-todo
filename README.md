@@ -143,6 +143,102 @@ class Todos extends Component {
 }
 ```
 
+Instead of looping over the values, in react we use a `map` method.
+
+```javascript
+import React, { Component } from 'react';
+
+class Todos extends Component {
+    render() {
+        return this.props.todos.map((todo) => (
+        <h3>{ todo.title }</h3>
+        ));
+    }
+}
+export default Todos;
+```
+
+### Add a `TodoItem`
+
+Now let's add a `TodoItem` to show each item of the list.
+
+```javascript
+import React, { Component } from 'react'
+
+export class TodoItem extends Component {
+    render() {
+        return (
+            <div>
+                <p>{this.props.todo.title}</p>
+            </div>
+        )
+    }
+}
+export default TodoItem
+```
+
+To show this on the page add the `TodoItem` to the `Todos`.
+
+```javascript
+import React, { Component } from 'react';
+import TodoItem from './TodoItem';
+
+class Todos extends Component {
+    render() {
+        return this.props.todos.map((todo) => (
+            <TodoItem  todo={todo} />
+        ));
+    }
+}
+export default Todos;
+```
+
+### Remove the warning
+
+There is still this warining.
+
+```bash
+index.js:1 Warning: Each child in a list should have a unique "key" prop. See https://fb.me/react-warning-keys for more information.
+```
+
+Just add a unique `key` to the `Todo` like this `key={todo.id}`.
+
+```javascript
+class Todos extends Component {
+    render() {
+        return this.props.todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} />
+        ));
+    }
+}
+```
+
+### Install Visual Studio Code Extension
+
+There is an Extension for Visual Studio Code that helps to generate Code very quick.
+The Extension is called _VS Code ES7 React/Redux/React-Native/JS snippets_.
+
+After Installing that you can type `rce` and press the `tab` key to create a new component.
+
+### Create new `Todoitem` Component
+
+To create the new Component, just create a new File `./component/Todoitem.js`.
+Type `rce` and `tab` to generate the source code.
+
+```bash
+import React, { Component } from 'react'
+
+export class TodoItem extends Component {
+    render() {
+        return (
+            <div>
+            </div>
+        )
+    }
+}
+export default Todoitem
+```
+
 ## Additional information
 
 ### This project is initialized using `npx`
@@ -161,23 +257,23 @@ In the project directory, you can run:
 
 #### `npm start`
 
-Runs the app in the development mode.<br />
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
+The page will reload if you make edits.
 You will also see any lint errors in the console.
 
 #### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
+Launches the test runner in the interactive watch mode.
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 #### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
+The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
