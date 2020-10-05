@@ -49,14 +49,16 @@ File names for Components by convention always start with a capital letter!
 It is a class based component like `App.js`, so we copy it.
 
 ```javascript
-import React from 'react';
+import React, { Component } from 'react';
 
-function Todos() {
-  return (
-    <div>
-      <h1>Todos</h1>
-    </div>
-  );
+class Todos extends Component {
+    render() {
+        return (
+            <div>
+                <h1>Todos</h1>
+            </div>
+        );
+    }
 }
 export default Todos;
 ```
@@ -64,20 +66,53 @@ export default Todos;
 Now we have to import the component in `App.js`.
 
 ```bash
-import React from 'react';
-...
+import React, { Component } from 'react';
+import './App.css';
 import Todos from './components/Todos';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>App</h1>
-      <Todos />
-    </div>
-  );
+class App extends Component {
+    render() {
+        return (
+            <div className="App">
+                <Todos />
+            </div>
+        );
+    }
 }
 export default App;
 ```
+
+### Add todos to new state
+
+Add a new `state` object with todos.
+
+```javascript
+class App extends Component {
+    state = {
+      todos: [
+          {
+            id: 1,
+            title:  'Take out the trash',
+            completed: false
+          },
+          {
+            id: 2,
+            title:  'Dinner with wife',
+            completed: false
+          },
+          {
+            id: 3,
+            title:  'Meeting with boss',
+            completed: false
+          }
+      ]
+    }
+    ...
+}
+
+export default App;
+```
+
 
 ## Additional information
 
