@@ -1,6 +1,83 @@
-# Create React App
+# React JS Crash Course
 
 Based upon React JS Crash Course - <https://www.youtube.com/watch?v=sBws8MSXN7A&t=54s>
+
+## Create the App
+
+### Init project using `npx`
+
+Initialized the project using the following command.
+
+```bash
+npx create-react-app .
+```
+
+### Remove the stuff not needed
+
+Removed comments in `index.js`, rmeoved `logo.svg`, `index.css` files, and replaced `App.css` with the following stuff.
+
+```css
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+```
+
+The project won't work until you delete the imports for the files in the `index.js` and `App.js`.
+
+### Create `Todos.js`
+
+Create it.
+
+```bash
+mkdir src/Components
+touch src/Components/Todos.js
+```
+
+File names for Components by convention always start with a capital letter!
+It is a class based component like `App.js`, so we copy it.
+
+```javascript
+import React from 'react';
+
+function Todos() {
+  return (
+    <div>
+      <h1>Todos</h1>
+    </div>
+  );
+}
+export default Todos;
+```
+
+Now we have to import the component in `App.js`.
+
+```bash
+import React from 'react';
+...
+import Todos from './components/Todos';
+
+function App() {
+  return (
+    <div className="App">
+      <h1>App</h1>
+      <Todos />
+    </div>
+  );
+}
+export default App;
+```
 
 ## Additional information
 
