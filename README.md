@@ -113,6 +113,35 @@ class App extends Component {
 export default App;
 ```
 
+### Add props to Todo
+
+We can add props to our Todos `<Todos todos={this.state.todos} />`.
+
+```javascript
+class App extends Component {
+    ...
+    render() {
+        return (
+            <div className="App">
+                <Todos todos={this.state.todos} />
+            </div>
+        );
+    }
+}
+```
+
+And we can access them in our `Todos.js` using `console.log(this.props.todos)`.
+
+```bash
+class Todos extends Component {
+    render() {
+        console.log(this.props.todos)
+        return (
+            ...
+        );
+    }
+}
+```
 
 ## Additional information
 
