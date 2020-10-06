@@ -270,6 +270,50 @@ TodoItem.propTypes = {
 }
 ```
 
+### JSX Styles
+
+To add some style for our `TodoItem` we can add a style property e.g. to a `div` tag.
+
+```javascript
+<div style={{ backgroundColor: '#fff4f4' }}>
+    <p>{this.props.todo.title}</p>
+</div>
+```
+
+Or we use a variable `itemStyle`.
+
+```javascript
+    <div style={ itemStyle }>
+        <p>{this.props.todo.title}</p>
+    </div>
+...
+const itemStyle = {
+    backgroundColor: '#f4f4f4'
+}
+```
+
+But we also can add a dynamic value base upon a method.
+
+```javascript
+export class TodoItem extends Component {
+    getStyle = () => {
+        return {
+            backgroundColor: '#f0f0ff',
+            padding: '10px',
+            borderBottom: '1px #acf dotted',
+            textDecoration: this.props.todo.completed ? 'line-through' : 'none'
+        }
+    }
+    render() {
+        return (
+            <div style={ this.getStyle() }>
+                <p>{this.props.todo.title}</p>
+            </div>
+        )
+    }
+}
+```
+
 ***
 
 ## Additional information
