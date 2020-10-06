@@ -213,6 +213,8 @@ class Todos extends Component {
 }
 ```
 
+
+
 ### Install Visual Studio Code Extension
 
 There is an Extension for Visual Studio Code that helps to generate Code very quick.
@@ -238,6 +240,37 @@ export class TodoItem extends Component {
 }
 export default Todoitem
 ```
+
+### Proptypes
+
+Proptypes is some kind of validation for properties a component should have.
+We can set a type and if they are required or not.
+Our `Todos` has a prop called `todos`. So we add `import PropTypes from 'prop-types` and  we need to add a proptype `Todos.propTypes` for that.
+
+```bash
+...
+import PropTypes from 'prop-types'
+
+class Todos extends Component {
+    ...
+}
+// PropTypes
+Todos.propTypes = {
+    todos: PropTypes.array.isRequired
+}
+export default Todos;
+```
+
+We do the same thing for our `TodoItem`.
+
+```bash
+// PropTypes
+TodoItem.propTypes = {
+    todo: PropTypes.object.isRequired
+}
+```
+
+***
 
 ## Additional information
 
