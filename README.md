@@ -314,6 +314,141 @@ export class TodoItem extends Component {
 }
 ```
 
+### Change the state of the Todo
+
+To change the state of the checkbox we have to add an event and a new method `markComplete`.
+
+```html
+<input type="checkbox" onChange={this.markComplete}/>
+```
+
+Remember, we have to use an arrow function, otherwise we can't access the 'props' for this component. We get a `TypeError: Cannot read property 'props' of undefined`.
+
+```bash
+markComplete() {
+    console.log(this.props) // does not work
+}
+```
+
+Since we don't have access to `this` we use an arrow function.
+
+```javascript
+export class TodoItem extends Component {
+    ...
+    markComplete = (e) => {
+        console.log(this.props.todo)
+    }
+    render() {
+        return (
+            <div style={ this.getStyle() }>
+                <p>
+                    <input type="checkbox" onChange={this.markComplete}/>
+                    {this.props.todo.title}
+                </p>
+            </div>
+        )
+    }
+}
+```
+
+Since we don't use a state manager like _Redux_ or a _context api_ we can't change the state of `App`, this is why we have to _climb up the tree_. This is the most complex thing to learn. We have to go from `TodoItem` to `Todo` and to `App`.
+
+So instead of calling `this.markComplete`, we call `this.props.markComplete`...
+
+```bash
+export class TodoItem extends Component {
+    ...
+    render() {
+        return (
+            <div style={ this.getStyle() }>
+                <p>
+                    <input type="checkbox" onChange={this.props.markComplete}/>
+                    ...
+```
+
+And we add a new property `markComplete={this.markComplete}` to `<TodoItem />`.
+
+```bash
+class Todos extends Component {
+    render() {
+        markComplete = () => {
+            console.log('Hello')
+        }
+        return this.props.todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} markComplete={this.markComplete} />
+        ));
+    }
+}
+```
+
+But we have to climb one more level since the `state` is in the `App`.
+
+```bash
+class Todos extends Component {
+    render() {
+        return this.props.todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} markComplete={this.props.markComplete} />
+        ));
+    }
+}
+```
+
+Add the `markComplete = { this.markComplete }` to `App.js` file and create a method.
+
+```bash
+class App extends Component {
+    ...
+    markComplete = (e) => {
+        console.log('From App.js')
+    }
+    render() {
+        return (
+            <div className="App">
+                <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+            </div>
+        );
+    }
+}
+```
+
+If we want to change the state, then we need to know which item we have to change. To achieve this  we need to `bind` our item in `TodoItem`.
+
+```bash
+<input type="checkbox" onChange={this.props.markComplete.bind(this, this.props.todo.id)}/>
+```
+
+Now we can toggle the `completed` status for this id.
+
+```javascript
+class App extends Component {
+    state = {
+      todos: [
+          {
+            id: 1,
+            title:  'Take out the trash',
+            completed: false
+          },
+        ...
+    }
+    markComplete = (id) => {
+        this.setState({ todos: this.state.todos.map( todo => {
+            if (todo.id === id) {
+                todo.completed = !todo.completed
+                console.log(todo)
+            }
+            return todo
+        }) })
+    }
+    render() {
+        return (
+            <div className="App">
+                <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+            </div>
+        );
+    }
+}
+```
+
 ***
 
 ## Additional information
