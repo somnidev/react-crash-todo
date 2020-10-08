@@ -449,6 +449,63 @@ class App extends Component {
 }
 ```
 
+### Add Delete Button
+
+To add a button we do the same thing as above. So let's add the button.
+
+```javascript
+<button style={btnStyle} onClick={this.props.delTodo.bind(this, id)} >x</button>
+```
+
+Add a const for the style.
+
+```javascript
+const btnStyle = {
+    background: '#ff0000',
+    color: '#ffffff',
+    border: 'none',
+    padding: '4px 8px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    float: 'right'
+}
+```
+
+In `TodoItem` we need to add `delTodo`.
+
+```javascript
+class Todos extends Component {
+    render() {
+        return this.props.todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} 
+                markComplete={this.props.markComplete} 
+                delTodo={this.props.delTodo}/>
+        ));
+    }
+}
+```
+
+And we have to remove the item in `App.js`.
+
+```javascript
+class App extends Component {
+    ...
+    delTodo = (id) => {
+        console.log(id);
+        this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+    }
+    render() {
+        return (
+            <div className="App">
+                <Todos todos={this.state.todos}
+                  markComplete={this.markComplete}
+                  delTodo={this.delTodo} />
+            </div>
+        );
+    }
+}
+```
+
 ***
 
 ## Additional information
