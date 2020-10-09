@@ -506,6 +506,47 @@ class App extends Component {
 }
 ```
 
+### Add a Header
+
+Add a new file `./components/layout/Header.js`.
+
+```javascript
+import React from 'react';
+
+function Header() {
+    return (
+        <header style={headerStyle}>
+            <h1>Todo List</h1>
+        </header>
+    )
+}
+const headerStyle = {
+    background: '#333',
+    color: '#fff',
+    textAlign: 'center',
+    padding: '10px'
+}
+export default Header;
+```
+
+And include it into the `App`.
+
+```javascript
+class App extends Component {
+    ...
+    render() {
+        return (
+            <div className="App">
+                <Header />
+                <Todos todos={this.state.todos} 
+                  markComplete={this.markComplete}
+                  delTodo={this.delTodo} />
+            </div>
+        );
+    }
+}
+```
+
 ***
 
 ## Additional information
