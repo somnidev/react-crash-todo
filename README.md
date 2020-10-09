@@ -547,6 +547,28 @@ class App extends Component {
 }
 ```
 
+### Add new component to Create a Todo
+
+Now we add a new component `./component/AddTodo.js`.
+
+```javascript
+import React, { Component } from 'react'
+
+export class AddTodo extends Component {
+    render() {
+        return (
+            <form style={{ display: 'flex' }}>
+                <input type="text" name="title" placeholder="Add todo..." style={{ flex: '10', padding: '5px' }} />
+                <input type="submit" value="Submit" className="btn" style={{ flex: '1' }}/>
+            </form>
+        )
+    }
+}
+export default AddTodo
+```
+
+And we add it right under the `Header` in the `App`.
+
 ***
 
 ## Additional information
