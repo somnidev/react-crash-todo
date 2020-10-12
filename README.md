@@ -853,6 +853,22 @@ AddTodo.propTypes = {
 }
 ```
 
+### Create a production build
+
+Don't forget.
+
+```bash
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+```
+
+So let's do this.
+
+```bash
+npm run build
+```
+
+This will create a new folder '/build' which contains our app which we can deploy.
 
 ***
 
