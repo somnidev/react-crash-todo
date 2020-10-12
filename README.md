@@ -842,6 +842,18 @@ class App extends Component {
 export default App;
 ```
 
+### Add missing proptypes
+
+We need to add some missing `PropTypes`.
+
+```javascript
+// PropTypes
+AddTodo.propTypes = {
+    addTodo: PropTypes.func.isRequired
+}
+```
+
+
 ***
 
 ## Additional information
