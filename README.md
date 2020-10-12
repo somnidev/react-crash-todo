@@ -213,8 +213,6 @@ class Todos extends Component {
 }
 ```
 
-
-
 ### Install Visual Studio Code Extension
 
 There is an Extension for Visual Studio Code that helps to generate Code very quick.
@@ -696,6 +694,79 @@ class App extends Component {
 }
 export default App;
 ```
+
+### The react router
+
+Now we start with the _react router (1:15:30 h)_.
+
+```bash
+npm i react-router-dom
+```
+
+Create a folder `pages` in `components` and a new file called `About.js`.
+Let's create a function component and generate it by `rcf` and type _tab-key_.
+
+```bash
+import React from 'react'
+
+export default function About() {
+    return (
+        <div></div>
+    )
+}
+```
+
+Since you have to `return` exactly _one element_, you can use a `<React.Fragment>` instead of a `<div>`.
+
+```javascript
+import React from 'react'
+
+function About() {
+    return (
+        <React.Fragment>
+            <h1>About</h1>
+            <p>This is the TodoList App. It is part of a React Crash Course.</p>
+        </React.Fragment>
+    )
+}
+export default About;
+```
+
+To implement our router we have to go to `App.js`, add the imports `import { BrowserRouter as Router, Route} from 'react-router-dom'` and `import About from './components/pages/About';`. After that we have to create the `Route`s usig a `React.Fragment`.
+
+```javascript
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom'
+...
+import { v4 as uuidv4 } from 'uuid';
+import About from './components/pages/About';
+
+class App extends Component {
+    ...
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    <div className="containter">
+                        <Header />
+                        <Route exact path="/" render={props => (
+                            <React.Fragment>
+                                <AddTodo addTodo={this.addTodo} />
+                                <Todos todos={this.state.todos} 
+                                  markComplete={this.markComplete}
+                                  delTodo={this.delTodo} />
+                            </React.Fragment>
+                        )} />
+                        <Route exact path="/about" component={About} />
+                    </div>
+                </div>
+            </Router>
+        );
+    }
+}
+export default App;
+```
+
 
 ***
 
