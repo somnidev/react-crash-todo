@@ -767,6 +767,80 @@ class App extends Component {
 export default App;
 ```
 
+### Add Links
+
+Let's actually add some links so that we can go to the about page and back to the home page. Let's do this in the header and add the import and some Links `<Link style={linkStyle} to="/">Home</Link>`.
+
+```bash
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+function Header() {
+    return (
+        <header style={headerStyle}>
+            <h1>Todo List</h1>
+            <Link style={linkStyle} to="/">Home</Link> | <Link style={linkStyle} to="/about">About</Link>
+        </header>
+    )
+}
+...
+const linkStyle = {
+    color: '#fff',
+    textDecoration: 'none'
+}
+export default Header;
+```
+
+### Http Requests
+
+Let's use JSONPlaceholder <https://jsonplaceholder.typicode.com> which is a free online REST API that you can use whenever you need some fake data.
+
+You can use the javascript _fetch library_, but we will use _axios_.
+
+```bash
+npm install axios
+```
+
+We want to fetch the todos from the jsonplaceholder api. So let's delete our entries in `App.js` but keep the empty array and add a get request to our fake rest api.
+
+To make initial request we want to use another lifecycle method called `componentDidMount` where we can use `Axios.get(...)` to get our todos.
+
+```javascript
+import React, { Component } from 'react';
+...
+import Axios from 'axios';
+
+class App extends Component {
+    state = {
+      todos: []
+    }
+    ...
+    addTodo = (title) => {
+        Axios.post('https://jsonplaceholder.typicode.com/todos', {
+            title,
+            completed: false
+        }).then( res => this.setState({todos: [...this.state.todos, res.data] }));
+    }
+    delTodo = (id) => {
+        console.log(id);
+        Axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+          .then( res => this.setState({ 
+              todos: [...this.state.todos.filter(todo => todo.id !== id)]}))
+    }
+    componentDidMount() {
+        Axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
+          .then( res => console.log(res.data));
+    }
+    render() {
+        return (
+            <Router>
+                ...
+            </Router>
+        );
+    }
+}
+export default App;
+```
 
 ***
 
